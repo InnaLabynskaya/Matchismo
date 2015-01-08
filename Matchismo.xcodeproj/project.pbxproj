@@ -75,6 +75,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CA72B18A1A5F15540069BE25 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2DFFA04F1A5BFD7400BAE71A /* Card.h */,
+				2DFFA0501A5BFD7400BAE71A /* Card.m */,
+				2DFFA0511A5BFD7400BAE71A /* CardMatchingGame.h */,
+				2DFFA0521A5BFD7400BAE71A /* CardMatchingGame.m */,
+				2DFFA0531A5BFD7400BAE71A /* Deck.h */,
+				2DFFA0541A5BFD7400BAE71A /* Deck.m */,
+				2DFFA0551A5BFD7400BAE71A /* PlayingCard.h */,
+				2DFFA0561A5BFD7400BAE71A /* PlayingCard.m */,
+				2DFFA0571A5BFD7400BAE71A /* PlayingCardDeck.h */,
+				2DFFA0581A5BFD7400BAE71A /* PlayingCardDeck.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		CAD3114E1A5B4A6A00A9B6CC = {
 			isa = PBXGroup;
 			children = (
@@ -96,16 +113,7 @@
 		CAD311591A5B4A6A00A9B6CC /* Matchismo */ = {
 			isa = PBXGroup;
 			children = (
-				2DFFA04F1A5BFD7400BAE71A /* Card.h */,
-				2DFFA0501A5BFD7400BAE71A /* Card.m */,
-				2DFFA0511A5BFD7400BAE71A /* CardMatchingGame.h */,
-				2DFFA0521A5BFD7400BAE71A /* CardMatchingGame.m */,
-				2DFFA0531A5BFD7400BAE71A /* Deck.h */,
-				2DFFA0541A5BFD7400BAE71A /* Deck.m */,
-				2DFFA0551A5BFD7400BAE71A /* PlayingCard.h */,
-				2DFFA0561A5BFD7400BAE71A /* PlayingCard.m */,
-				2DFFA0571A5BFD7400BAE71A /* PlayingCardDeck.h */,
-				2DFFA0581A5BFD7400BAE71A /* PlayingCardDeck.m */,
+				CA72B18A1A5F15540069BE25 /* Model */,
 				CAD311611A5B4A6A00A9B6CC /* ViewController.h */,
 				CAD311621A5B4A6A00A9B6CC /* ViewController.m */,
 				CAD311641A5B4A6A00A9B6CC /* Main.storyboard */,
