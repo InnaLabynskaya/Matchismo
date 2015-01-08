@@ -59,7 +59,7 @@ static const int COST_TO_CHOOSE = 1;
                     [chosenCards addObject:otherCard];
                 }
             }
-            card.chosen = YES;
+            
             if(chosenCards.count + 1 >= self.matchCards){
                 int matchScore = [card match:chosenCards];
                 if(matchScore != 0){
@@ -74,9 +74,10 @@ static const int COST_TO_CHOOSE = 1;
                         otherCard.chosen = NO;
                     }
                 }
-            } else {
-                self.score -= COST_TO_CHOOSE;
             }
+            
+            card.chosen = YES;
+            self.score -= COST_TO_CHOOSE;
         }
     }
 }
