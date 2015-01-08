@@ -18,4 +18,6 @@
 
 @property (nonatomic, readonly) NSInteger score;
 
+@property (nonatomic) NSUInteger matchCards;
+
 @end
