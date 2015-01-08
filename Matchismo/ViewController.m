@@ -18,7 +18,7 @@
 @property (nonatomic, strong) CardMatchingGame *game;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *SwitchController;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 
 @end
 
@@ -26,7 +26,15 @@
 
 - (CardMatchingGame *)game
 {
-    if(!_game) _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
+    if(!_game) {
+        _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
+        if(self.segmentControl.selectedSegmentIndex == 0){
+            _game.matchCards = 2;
+        } else {
+            _game.matchCards = 3;
+        }
+    }
+    
     return _game;
 }
 
@@ -37,6 +45,7 @@
 
 - (IBAction)touchCardButton:(UIButton *)sender
 {
+    self.segmentControl.enabled = NO;
     NSUInteger cardIndex = [self.cardButtons indexOfObject:sender];
     [self.game chooseCardAtIndex:cardIndex];
     [self updateUI];
@@ -44,8 +53,18 @@
 
 - (IBAction)touchReDealButton:(UIButton *)sender
 {
+    self.segmentControl.enabled = YES;
     self.game = nil;
     [self updateUI];
+}
+
+- (IBAction)segmentControlChange:(UISegmentedControl *)sender
+{
+    if(sender.selectedSegmentIndex == 0) {
+        self.game.matchCards = 2;
+    } else {
+        self.game.matchCards = 3;
+    }
 }
 
 - (void)updateUI

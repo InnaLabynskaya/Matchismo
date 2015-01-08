@@ -60,7 +60,7 @@ static const int COST_TO_CHOOSE = 1;
                 }
             }
             card.chosen = YES;
-            if(chosenCards.count + 1 == self.matchCards){
+            if(chosenCards.count + 1 >= self.matchCards){
                 int matchScore = [card match:chosenCards];
                 if(matchScore != 0){
                     self.score += matchScore * MATCH_BONUS;
