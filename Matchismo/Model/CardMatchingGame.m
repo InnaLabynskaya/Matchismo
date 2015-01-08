@@ -17,13 +17,13 @@
 
 @implementation CardMatchingGame
 
-- (NSMutableArray *) cards
+- (NSMutableArray *)cards
 {
     if(!_cards) _cards = [[NSMutableArray alloc] init];
     return _cards;
 }
 
-- (instancetype) initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck
+- (instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck
 {
     self = [super init];
     if(self){
@@ -35,7 +35,6 @@
                 self = nil;
                 break;
             }
-            
         }
     }
     return self;
@@ -75,7 +74,7 @@ static const int COST_TO_CHOOSE = 1;
 
 - (Card *)cardAtIndex:(NSUInteger)index
 {
-    return (index < [self.cards count]) ?
+    return (index < self.cards.count) ?
     self.cards[index] : nil;
 }
 

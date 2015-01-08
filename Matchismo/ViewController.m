@@ -42,6 +42,12 @@
     [self updateUI];
 }
 
+- (IBAction)touchReDealButton:(UIButton *)sender
+{
+    self.game = nil;
+    [self updateUI];
+}
+
 - (void)updateUI
 {
     for(UIButton *cardButton in self.cardButtons){
