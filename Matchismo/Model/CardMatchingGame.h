@@ -8,9 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "Deck.h"
+#import "CardMatchingGameMove.h"
+
 @interface CardMatchingGame : NSObject
 
--(instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck;
+-(instancetype)initWithCardCount:(NSUInteger)count
+                       usingDeck:(Deck *)deck;
 
 - (void)chooseCardAtIndex:(NSUInteger)index;
 
@@ -19,5 +22,7 @@
 @property (nonatomic, readonly) NSInteger score;
 
 @property (nonatomic) NSUInteger matchCards;
+
+@property (nonatomic, readonly, strong) NSMutableArray *chosenCards;
 
 @end
