@@ -24,5 +24,6 @@
 @property (nonatomic) NSUInteger matchCards;
 
 @property (nonatomic, readonly, strong) NSMutableArray *chosenCards;
+@property (nonatomic, readonly, strong) NSMutableArray *moves;
 
 @end

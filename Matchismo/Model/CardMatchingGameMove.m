@@ -17,7 +17,7 @@
     self = [super init];
     if(self) {
         _moveType = moveType;
-        _cards = cards;
+        _cards = [cards copy];
         _score = score;
     }
     return self;

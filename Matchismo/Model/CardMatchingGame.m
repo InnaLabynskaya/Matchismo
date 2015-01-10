@@ -56,41 +56,59 @@
     return self;
 }
 
-#define MISMATCH_PENALTY 2
+#define MISMATCH_PENALTY (-2)
 static const int MATCH_BONUS = 4;
-static const int COST_TO_CHOOSE = 1;
+static const int COST_TO_CHOOSE = -1;
 
 - (void) chooseCardAtIndex:(NSUInteger)index
 {
     Card *card = [self cardAtIndex:index];
-    NSLog(@"%@", card);
     if (!card.isMatched){
         if(card.isChosen){
             card.chosen = NO;
             [self.chosenCards removeObject:card];
+            [self.moves addObject:[[CardMatchingGameMove alloc]
+                                   initWithMoveType:MoveTypeCommon
+                                   cards:self.chosenCards
+                                   score:0]];
         } else {
             if(self.chosenCards.count + 1 >= self.matchCards) {
                 int matchScore = [card match:self.chosenCards];
                 if(matchScore != 0) {
-                    self.score += matchScore * MATCH_BONUS;
+                    self.score += matchScore * MATCH_BONUS + COST_TO_CHOOSE;
                     card.matched = YES;
                     for(Card *otherCard in self.chosenCards) {
                         otherCard.matched = YES;
                     }
+                    card.chosen = YES;
+                    [self.chosenCards addObject:card];
+                    [self.moves addObject:[[CardMatchingGameMove alloc]
+                                           initWithMoveType:MoveTypeMatch
+                                           cards:self.chosenCards
+                                           score:matchScore*MATCH_BONUS + COST_TO_CHOOSE]];
+                    self.chosenCards = nil;
                 } else {
-                    self.score -= MISMATCH_PENALTY;
+                    self.score += MISMATCH_PENALTY + COST_TO_CHOOSE;
                     for(Card *otherCard in self.chosenCards) {
                         otherCard.chosen = NO;
                     }
+                    card.chosen = YES;
+                    [self.moves addObject:[[CardMatchingGameMove alloc]
+                                           initWithMoveType:MoveTypeDontMatch
+                                           cards:[self.chosenCards arrayByAddingObject:card]
+                                           score:MISMATCH_PENALTY + COST_TO_CHOOSE]];
+                    self.chosenCards = nil;
+                    [self.chosenCards addObject:card];
                 }
-                self.chosenCards = nil;
-            }
-            
-            card.chosen = YES;
-            if(!card.isMatched) {
+            } else {
+                self.score += COST_TO_CHOOSE;
+                card.chosen = YES;
                 [self.chosenCards addObject:card];
+                [self.moves addObject:[[CardMatchingGameMove alloc]
+                                       initWithMoveType:MoveTypeCommon
+                                       cards:self.chosenCards
+                                       score:COST_TO_CHOOSE]];
             }
-            self.score -= COST_TO_CHOOSE;
         }
     }
 }

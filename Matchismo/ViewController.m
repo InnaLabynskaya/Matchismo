@@ -76,12 +76,39 @@
         [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
         [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
         cardButton.enabled = !card.isMatched;
-        if(card.isChosen && !card.isMatched)
-        {
-            self.textLabel.text = [NSString stringWithFormat:@"Card: %@", card.contents];
-        }
     }
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", (int)self.game.score];
+    self.textLabel.text = [self stringFromMove:self.game.moves.lastObject];
+}
+
+- (NSString *)stringFromMove:(CardMatchingGameMove *)move
+{
+    NSString *result = nil;
+    switch(move.moveType)
+    {
+        case MoveTypeCommon:
+            result = [self stringFromCards:move.cards];
+            break;
+        case MoveTypeDontMatch:
+            result = [NSString stringWithFormat:@"%@ don`t match! %d points penalty!",
+                      [self stringFromCards:move.cards], abs((int)move.score)];
+            break;
+        case MoveTypeMatch:
+            result = [NSString stringWithFormat:@"Matched %@ for %d points!",
+                      [self stringFromCards:move.cards], (int)move.score];
+            break;
+    }
+    return result;
+}
+
+- (NSString *)stringFromCards:(NSArray *)cards
+{
+    NSMutableString *result = [[NSMutableString alloc] init];
+    for(Card *card in cards)
+    {
+        [result appendFormat:@"%@", card.contents];
+    }
+    return result;
 }
 
 - (NSString *)titleForCard:(Card *)card
