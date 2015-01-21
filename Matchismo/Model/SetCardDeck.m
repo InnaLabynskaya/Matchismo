@@ -15,7 +15,7 @@
 {
     self = [super init];
     if(self){
-        for(NSString *shape in [SetCard validShapes])
+        for(SetCardShape shape = SetCardShapeTriangle; shape <= SetCardShapeCircle; shape++)
         {
             for(NSUInteger number = 1; number <= [SetCard maxNumber]; number++)
             {

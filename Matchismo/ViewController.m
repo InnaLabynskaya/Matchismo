@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "PlayingCardDeck.h"
 #import "Deck.h"
 #import "CardMatchingGame.h"
 
@@ -41,7 +40,7 @@
 
 -(Deck *)createDeck
 {
-    return [[PlayingCardDeck alloc]init];
+    return nil;
 }
 
 - (IBAction)touchCardButton:(UIButton *)sender

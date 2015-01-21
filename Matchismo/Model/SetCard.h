@@ -20,14 +20,19 @@ typedef enum : NSUInteger {
     SetCardShadingDashed
 } SetCardShading;
 
+typedef enum : NSUInteger {
+    SetCardShapeTriangle,
+    SetCardShapeRectangle,
+    SetCardShapeCircle,
+} SetCardShape;
+
 @interface SetCard : Card
 
 @property(nonatomic) SetCardColor color;
 @property(nonatomic) SetCardShading shading;
-@property(nonatomic, strong) NSString *shape;
+@property(nonatomic) SetCardShape shape;
 @property(nonatomic) NSUInteger number;
 
-+ (NSArray *)validShapes;
 + (NSUInteger)maxNumber;
 
 @end
