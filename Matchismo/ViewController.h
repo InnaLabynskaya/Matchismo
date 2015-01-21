@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "Deck.h"
+#import "CardMatchingGame.h"
 
 @interface ViewController : UIViewController
 
 - (Deck *)createDeck;
-
+- (void)updateButton:(UIButton*)button fromCard:(Card*)card;
 @end
 

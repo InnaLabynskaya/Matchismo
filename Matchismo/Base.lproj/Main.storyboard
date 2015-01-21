@@ -357,17 +357,6 @@
                                     <action selector="touchReDealButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Fuf-sJ-zsV"/>
                                 </connections>
                             </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Bbd-5O-21E">
-                                <rect key="frame" x="16" y="410" width="123" height="29"/>
-                                <segments>
-                                    <segment title="2 Cards"/>
-                                    <segment title="3 Cards"/>
-                                </segments>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <action selector="segmentControlChange:" destination="vXZ-lx-hvc" eventType="valueChanged" id="pwU-6P-Brf"/>
-                                </connections>
-                            </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dsn-RP-T4y">
                                 <rect key="frame" x="16" y="439" width="256" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -385,7 +374,6 @@
                     </view>
                     <connections>
                         <outlet property="scoreLabel" destination="u1t-mc-BLo" id="dHe-hk-Rvz"/>
-                        <outlet property="segmentControl" destination="Bbd-5O-21E" id="6Zg-8m-BiM"/>
                         <outlet property="textLabel" destination="Dsn-RP-T4y" id="QTO-fE-j4U"/>
                         <outletCollection property="cardButtons" destination="0yY-rF-LgC" id="BdF-eO-rSZ"/>
                         <outletCollection property="cardButtons" destination="0yY-rF-LgC" id="Pgr-4a-F0q"/>
