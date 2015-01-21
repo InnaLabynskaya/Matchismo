@@ -7,6 +7,8 @@
 //
 
 #import "SetCardGameViewController.h"
+#import "SetCardDeck.h"
+#import "SetCard.h"
 
 @interface SetCardGameViewController ()
 
@@ -14,24 +16,53 @@
 
 @implementation SetCardGameViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+- (Deck *)createDeck
+{
+    return [[SetCardDeck alloc]init];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)updateButton:(UIButton*)button fromCard:(Card*)card
+{
+    if([card isKindOfClass:[SetCard class]])
+    {
+        SetCard *setCard = (SetCard*)card;
+        if(setCard.isChosen)
+        {
+            if(setCard.isMatched)
+                button.alpha = 0.5;
+            else
+                button.alpha = 0.75;
+        }
+        else
+        {
+            button.alpha = 1;
+        }
+        NSString *string = nil;
+        switch (setCard.shape) {
+            case SetCardShapeTriangle:
+                string = @"triangle";
+                break;
+            case SetCardShapeCircle:
+                string = @"circle";
+                break;
+            case SetCardShapeRectangle:
+                string = @"rectangle";
+                break;
+        }
+        [button setTitle:string forState:UIControlStateNormal];
+    }
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (UIColor*)colorForSetColor:(SetCardColor)setColor
+{
+    switch (setColor) {
+        case SetCardColorRed:
+            return [[UIColor alloc] initWithRed:1 green:0 blue:0 alpha:1];
+        case SetCardColorGreen:
+            return [[UIColor alloc] initWithRed:0 green:1 blue:0 alpha:1];
+        case SetCardColorBlue:
+            return [[UIColor alloc] initWithRed:0 green:0 blue:1 alpha:1];
+    }
 }
-*/
 
 @end
