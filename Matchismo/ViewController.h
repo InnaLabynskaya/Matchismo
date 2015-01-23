@@ -13,6 +13,9 @@
 @interface ViewController : UIViewController
 
 - (Deck *)createDeck;
+- (CardMatchingGame*)createGame:(NSUInteger)openCards;
 - (void)updateButton:(UIButton*)button fromCard:(Card*)card;
+- (void)updateUI;
+
 @end
 

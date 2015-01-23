@@ -25,8 +25,7 @@
 - (CardMatchingGame *)game
 {
     if(!_game) {
-        _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
-        _game.matchCards = 2;
+        _game = [self createGame:[self.cardButtons count]];
     }
     return _game;
 }
@@ -34,6 +33,11 @@
 -(Deck *)createDeck
 {
     return nil;
+}
+
+- (CardMatchingGame*)createGame:(NSUInteger)openCards
+{
+    return [[CardMatchingGame alloc] initWithCardCount:openCards usingDeck:[self createDeck]];
 }
 
 - (IBAction)touchCardButton:(UIButton *)sender
