@@ -1,57 +1,23 @@
 //
-//  SetCardGameViewController.m
+//  SetGameHistoryViewController.m
 //  Matchismo
 //
-//  Created by Inna Labuskaya on 1/21/15.
+//  Created by Inna Labuskaya on 1/23/15.
 //  Copyright (c) 2015 Inna Labuskaya. All rights reserved.
 //
 
-#import "SetCardGameViewController.h"
-#import "SetCardDeck.h"
+#import "SetGameHistoryViewController.h"
 #import "SetCard.h"
 
-@interface SetCardGameViewController ()
+@interface SetGameHistoryViewController ()
 
 @end
 
-@implementation SetCardGameViewController
+@implementation SetGameHistoryViewController
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)updateUI
 {
-    [super viewWillAppear:animated];
-    [self updateUI];
-}
-
-- (Deck *)createDeck
-{
-    return [[SetCardDeck alloc]init];
-}
-
-- (CardMatchingGame*)createGame:(NSUInteger)openCards
-{
-    CardMatchingGame *game = [[CardMatchingGame alloc] initWithCardCount:openCards usingDeck:[self createDeck]];
-    game.matchCards = 3;
-    return game;
-}
-
-- (void)updateButton:(UIButton*)button fromCard:(Card*)card
-{
-    if([card isKindOfClass:[SetCard class]])
-    {
-        SetCard *setCard = (SetCard*)card;
-        if(setCard.isChosen)
-        {
-            if(setCard.isMatched)
-                button.alpha = 0.5;
-            else
-                button.alpha = 0.75;
-        }
-        else
-        {
-            button.alpha = 1;
-        }
-        [button setAttributedTitle:[self stringFromCard:setCard] forState:UIControlStateNormal];
-    }
+    
 }
 
 - (NSAttributedString*)stringFromCard:(SetCard*)setCard

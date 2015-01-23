@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "Deck.h"
 #import "CardMatchingGame.h"
+#import "HistoryViewController.h"
 
 @interface ViewController ()
 
@@ -16,11 +17,20 @@
 @property (nonatomic, strong) CardMatchingGame *game;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
-@property (weak, nonatomic) IBOutlet UILabel *textLabel;
 
 @end
 
 @implementation ViewController
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"History"]){
+        if([segue.destinationViewController isKindOfClass:[HistoryViewController class]]){
+            HistoryViewController *tsvc = (HistoryViewController *)segue.destinationViewController;
+            tsvc.moves = self.game.moves;
+        }
+    }
+}
 
 - (CardMatchingGame *)game
 {
@@ -61,41 +71,10 @@
         [self updateButton:cardButton fromCard:card];
     }
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", (int)self.game.score];
-    self.textLabel.text = [self stringFromMove:self.game.moves.lastObject];
 }
 
 - (void)updateButton:(UIButton*)button fromCard:(Card*)card
 {
-}
-
-- (NSString *)stringFromMove:(CardMatchingGameMove *)move
-{
-    NSString *result = nil;
-    switch(move.moveType)
-    {
-        case MoveTypeCommon:
-            result = [self stringFromCards:move.cards];
-            break;
-        case MoveTypeDontMatch:
-            result = [NSString stringWithFormat:@"%@ don`t match! %d points penalty!",
-                      [self stringFromCards:move.cards], abs((int)move.score)];
-            break;
-        case MoveTypeMatch:
-            result = [NSString stringWithFormat:@"Matched %@ for %d points!",
-                      [self stringFromCards:move.cards], (int)move.score];
-            break;
-    }
-    return result;
-}
-
-- (NSString *)stringFromCards:(NSArray *)cards
-{
-    NSMutableString *result = [[NSMutableString alloc] init];
-    for(Card *card in cards)
-    {
-        [result appendFormat:@"%@", card.contents];
-    }
-    return result;
 }
 
 @end

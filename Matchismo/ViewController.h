@@ -12,6 +12,8 @@
 
 @interface ViewController : UIViewController
 
+@property (nonatomic, strong, readonly) CardMatchingGame *game;
+
 - (Deck *)createDeck;
 - (CardMatchingGame*)createGame:(NSUInteger)openCards;
 - (void)updateButton:(UIButton*)button fromCard:(Card*)card;
