@@ -75,7 +75,7 @@
         case SetCardShapeCircle:
             return empty? @"○": @"●";
         case SetCardShapeRectangle:
-            return empty? @"▫︎": @"▪︎";
+            return empty? @"◇": @"◆";
     }
 }
 

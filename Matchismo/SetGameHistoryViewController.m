@@ -17,7 +17,47 @@
 
 - (void)updateUI
 {
-    
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] init];
+    for(CardMatchingGameMove *move in self.moves)
+    {
+        if (move.moveType != MoveTypeCommon)
+            [string appendAttributedString:[self stringFromMove:move]];
+    }
+    self.history.attributedText = string;
+}
+
+-(NSAttributedString *)stringFromMove:(CardMatchingGameMove *)move
+{
+    NSMutableAttributedString *result = [[NSMutableAttributedString alloc] init];
+    switch(move.moveType)
+    {
+        case MoveTypeCommon:
+            [result appendAttributedString:[self stringFromCards:move.cards]];
+            [result appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
+            break;
+        case MoveTypeDontMatch:
+            [result appendAttributedString:[self stringFromCards:move.cards]];
+            [result appendAttributedString:
+             [[NSAttributedString alloc] initWithString:
+              [[NSString alloc] initWithFormat:@"is not set! %d penalty!\n", abs((int)move.score)]]];
+            break;
+        case MoveTypeMatch:
+            [result appendAttributedString:
+             [[NSAttributedString alloc] initWithString:
+              [[NSString alloc] initWithFormat:@"is set! %d points!\n", (int)move.score]]];
+            break;
+    }
+    return result;    
+}
+
+- (NSAttributedString *)stringFromCards:(NSArray *)setCards
+{
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] init];
+    for(SetCard *setCard in setCards){
+        [string appendAttributedString:[self stringFromCard:setCard]];
+        [string appendAttributedString:[[NSAttributedString alloc] initWithString:@" "]];
+    }
+    return string;
 }
 
 - (NSAttributedString*)stringFromCard:(SetCard*)setCard
@@ -41,7 +81,7 @@
         case SetCardShapeCircle:
             return empty? @"○": @"●";
         case SetCardShapeRectangle:
-            return empty? @"▫︎": @"▪︎";
+            return empty? @"◇": @"◆";
     }
 }
 
