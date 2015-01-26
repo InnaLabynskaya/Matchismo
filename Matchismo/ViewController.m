@@ -16,7 +16,6 @@
 @property (strong, nonatomic) Deck *deck;
 @property (nonatomic, strong) CardMatchingGame *game;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 
 @end
 
@@ -46,21 +45,9 @@
     return _game;
 }
 
--(Deck *)createDeck
-{
-    return nil;
-}
-
 - (CardMatchingGame*)createGame
 {
-    return [[CardMatchingGame alloc] initWithCardDeck:[self createDeck]];
-}
-
-- (IBAction)touchCardButton:(UIButton *)sender
-{
-    NSUInteger cardIndex = [self.cardButtons indexOfObject:sender];
-    [self.game chooseCardAtIndex:cardIndex];
-    [self updateUI];
+    return nil;
 }
 
 - (IBAction)touchReDealButton:(UIBarButtonItem *)sender
@@ -71,16 +58,7 @@
 
 - (void)updateUI
 {
-    for(UIButton *cardButton in self.cardButtons){
-        NSUInteger cardIndex = [self.cardButtons indexOfObject:cardButton];
-        Card *card = [self.game cardAtIndex:cardIndex];
-        [self updateButton:cardButton fromCard:card];
-    }
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", (int)self.game.score];
-}
-
-- (void)updateButton:(UIButton*)button fromCard:(Card*)card
-{
 }
 
 @end

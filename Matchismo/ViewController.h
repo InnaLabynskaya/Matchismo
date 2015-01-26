@@ -14,9 +14,7 @@
 
 @property (nonatomic, strong, readonly) CardMatchingGame *game;
 
-- (Deck *)createDeck;
 - (CardMatchingGame*)createGame;
-- (void)updateButton:(UIButton*)button fromCard:(Card*)card;
 - (void)updateUI;
 
 @end

@@ -19,11 +19,6 @@
 
 @implementation PlayingCardGameViewController
 
-- (Deck *)createDeck
-{
-    return [[PlayingCardDeck alloc]init];
-}
-
 - (NSMutableArray *)cardViews
 {
     if(!_cardViews)
@@ -33,7 +28,7 @@
 
 - (CardMatchingGame*)createGame
 {
-    CardMatchingGame *game = [[CardMatchingGame alloc] initWithCardDeck:[self createDeck]];
+    CardMatchingGame *game = [[CardMatchingGame alloc] initWithCardDeck:[[PlayingCardDeck alloc]init]];
     [self initGame:game];
     return game;
 }
@@ -50,6 +45,25 @@
     CGRect frame = CGRectZero;
     frame.origin = CGPointMake(-[grid cellSize].width, -[grid cellSize].height);
     frame.size = CGSizeMake([grid cellSize].width * 0.9, [grid cellSize].height * 0.9);
+    //remove old cards from view
+    float delay = 0;
+    if (self.cardViews.count) {
+        delay = self.cardViews.count * 0.1;
+        for (int i = 0; i < self.cardViews.count; ++i) {
+            PlayingCardView *view = self.cardViews[i];
+            [UIView animateWithDuration:0.3
+                                  delay:i*0.1
+                                options:UIViewAnimationOptionCurveEaseInOut
+                             animations:^{
+                                 view.center = CGPointMake(-[grid cellSize].width, -[grid cellSize].height);
+                             }
+                             completion:^(BOOL finished) {
+                                 [view removeFromSuperview];
+                             }];
+        }
+        self.cardViews = nil;
+    }
+    //create new cards
     for (int i = 0; i < cards; ++i) {
         PlayingCard* card = (PlayingCard*)[game drawCard];
         PlayingCardView *view = [[PlayingCardView alloc]initWithFrame:frame];
@@ -58,8 +72,8 @@
         view.faceUp = NO;
         CGPoint position = [grid centerOfCellAtRow:i/grid.columnCount inColumn:i%grid.columnCount];
         [UIView animateWithDuration:0.3
-                              delay:i*0.1
-                            options:0
+                              delay:delay+i*0.1
+                            options:UIViewAnimationOptionCurveEaseInOut
                          animations:^{
                              view.center = CGPointMake(offset.x+position.x, offset.y+position.y);
                          }
@@ -80,7 +94,7 @@
 
 - (void)updateUI
 {
-    [self game];
+    [super updateUI];
     for(PlayingCardView *cardView in self.cardViews){
         NSUInteger cardIndex = [self.cardViews indexOfObject:cardView];
         Card *card = [self.game cardAtIndex:cardIndex];
