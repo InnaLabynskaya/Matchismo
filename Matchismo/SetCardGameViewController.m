@@ -29,7 +29,7 @@
 
 - (CardMatchingGame*)createGame:(NSUInteger)openCards
 {
-    CardMatchingGame *game = [[CardMatchingGame alloc] initWithCardCount:openCards usingDeck:[self createDeck]];
+    CardMatchingGame *game = [[CardMatchingGame alloc] initWithCardDeck:[self createDeck]];
     game.matchCards = 3;
     return game;
 }

@@ -8,8 +8,12 @@
 
 #import "PlayingCardGameViewController.h"
 #import "PlayingCardDeck.h"
+#import "PlayingCardView.h"
+#import "Grid.h"
 
 @interface PlayingCardGameViewController ()
+
+@property (nonatomic, strong) NSMutableArray *cardViews;
 
 @end
 
@@ -20,21 +24,69 @@
     return [[PlayingCardDeck alloc]init];
 }
 
-- (void)updateButton:(UIButton*)button fromCard:(Card*)card
+- (NSMutableArray *)cardViews
 {
-    [button setTitle:[self titleForCard:card] forState:UIControlStateNormal];
-    [button setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
-    button.enabled = !card.isMatched;
+    if(!_cardViews)
+        _cardViews =[[NSMutableArray alloc]init];
+    return _cardViews;
 }
 
-- (NSString *)titleForCard:(Card *)card
+- (CardMatchingGame*)createGame
 {
-    return card.isChosen ? card.contents : @"";
+    CardMatchingGame *game = [[CardMatchingGame alloc] initWithCardDeck:[self createDeck]];
+    [self initGame:game];
+    return game;
 }
 
-- (UIImage *)backgroundImageForCard:(Card *)card
+- (void)initGame:(CardMatchingGame*)game
 {
-    return [UIImage imageNamed:card.isChosen ? @"card_front" : @"card_back"];
+    const NSUInteger cards = 25;
+    Grid *grid = [[Grid alloc]init];
+    CGPoint offset = CGPointMake(16, 100);
+    grid.size = CGSizeMake(self.view.frame.size.width - offset.x*2, self.view.frame.size.height - offset.y);
+    grid.cellAspectRatio = 2.0/2.8;
+    grid.minimumNumberOfCells = cards;
+    
+    CGRect frame = CGRectZero;
+    frame.origin = CGPointMake(-[grid cellSize].width, -[grid cellSize].height);
+    frame.size = CGSizeMake([grid cellSize].width * 0.9, [grid cellSize].height * 0.9);
+    for (int i = 0; i < cards; ++i) {
+        PlayingCard* card = (PlayingCard*)[game drawCard];
+        PlayingCardView *view = [[PlayingCardView alloc]initWithFrame:frame];
+        view.suit = card.suit;
+        view.rank = card.rank;
+        view.faceUp = NO;
+        CGPoint position = [grid centerOfCellAtRow:i/grid.columnCount inColumn:i%grid.columnCount];
+        [UIView animateWithDuration:0.3
+                              delay:i*0.1
+                            options:0
+                         animations:^{
+                             view.center = CGPointMake(offset.x+position.x, offset.y+position.y);
+                         }
+                         completion:^(BOOL finished) {}];
+        UIGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+        [view addGestureRecognizer:tapRecognizer];
+        [self.cardViews addObject:view];
+        [self.view addSubview:view];
+    }
+}
+
+- (void)handleTap:(UITapGestureRecognizer *)sender
+{
+    NSUInteger cardIndex = [self.cardViews indexOfObject:sender.view];
+    [self.game chooseCardAtIndex:cardIndex];
+    [self updateUI];
+}
+
+- (void)updateUI
+{
+    [self game];
+    for(PlayingCardView *cardView in self.cardViews){
+        NSUInteger cardIndex = [self.cardViews indexOfObject:cardView];
+        Card *card = [self.game cardAtIndex:cardIndex];
+        cardView.faceUp = card.isChosen;
+        cardView.alpha = card.isMatched? 0.5: 1.0;
+    }
 }
 
 @end

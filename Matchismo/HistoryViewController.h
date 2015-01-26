@@ -13,6 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *history;
 @property (nonatomic, strong) NSArray *moves;
+@property (nonatomic) NSUInteger score;
 - (void)updateUI;
 
 @end

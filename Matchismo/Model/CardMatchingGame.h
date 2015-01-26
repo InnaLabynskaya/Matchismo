@@ -12,12 +12,12 @@
 
 @interface CardMatchingGame : NSObject
 
--(instancetype)initWithCardCount:(NSUInteger)count
-                       usingDeck:(Deck *)deck;
+- (instancetype)initWithCardDeck:(Deck *)deck;
 
 - (void)chooseCardAtIndex:(NSUInteger)index;
 
 - (Card *)cardAtIndex:(NSUInteger)index;
+- (NSArray*)cardsInGame;
 
 @property (nonatomic, readonly) NSInteger score;
 
@@ -25,5 +25,7 @@
 
 @property (nonatomic, readonly, strong) NSMutableArray *chosenCards;
 @property (nonatomic, readonly, strong) NSMutableArray *moves;
+
+- (Card *) drawCard;
 
 @end

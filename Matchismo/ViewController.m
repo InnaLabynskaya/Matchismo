@@ -22,6 +22,12 @@
 
 @implementation ViewController
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self updateUI];
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"History"]){
@@ -35,7 +41,7 @@
 - (CardMatchingGame *)game
 {
     if(!_game) {
-        _game = [self createGame:[self.cardButtons count]];
+        _game = [self createGame];
     }
     return _game;
 }
@@ -45,9 +51,9 @@
     return nil;
 }
 
-- (CardMatchingGame*)createGame:(NSUInteger)openCards
+- (CardMatchingGame*)createGame
 {
-    return [[CardMatchingGame alloc] initWithCardCount:openCards usingDeck:[self createDeck]];
+    return [[CardMatchingGame alloc] initWithCardDeck:[self createDeck]];
 }
 
 - (IBAction)touchCardButton:(UIButton *)sender
@@ -57,7 +63,7 @@
     [self updateUI];
 }
 
-- (IBAction)touchReDealButton:(UIButton *)sender
+- (IBAction)touchReDealButton:(UIBarButtonItem *)sender
 {
     self.game = nil;
     [self updateUI];
@@ -66,7 +72,7 @@
 - (void)updateUI
 {
     for(UIButton *cardButton in self.cardButtons){
-        NSUInteger cardIndex =[self.cardButtons indexOfObject:cardButton];
+        NSUInteger cardIndex = [self.cardButtons indexOfObject:cardButton];
         Card *card = [self.game cardAtIndex:cardIndex];
         [self updateButton:cardButton fromCard:card];
     }

@@ -14,11 +14,16 @@
 @property (nonatomic, strong) NSMutableArray *cards;
 @property (nonatomic, strong) NSMutableArray *moves;
 @property (nonatomic, strong) NSMutableArray *chosenCards;
-
+@property (nonatomic, strong) Deck* deck;
 @end
 
 
 @implementation CardMatchingGame
+
+- (NSArray*)cardsInGame
+{
+    return self.cards;
+}
 
 - (NSMutableArray *)cards
 {
@@ -38,22 +43,23 @@
     return _chosenCards;
 }
 
-- (instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck
+- (instancetype)initWithCardDeck:(Deck *)deck
 {
     self = [super init];
     if(self){
-        for(int i = 0; i < count; i++){
-            Card *card = [deck drawRandomCard];
-            if(card){
-              [self.cards addObject:card];
-            }else{
-                self = nil;
-                break;
-            }
-        }
+        self.deck = deck;
         self.matchCards = 2;
     }
     return self;
+}
+
+- (Card *) drawCard
+{
+    Card *card = [self.deck drawRandomCard];
+    if(card){
+        [self.cards addObject:card];
+    }
+    return card;
 }
 
 #define MISMATCH_PENALTY (-2)
