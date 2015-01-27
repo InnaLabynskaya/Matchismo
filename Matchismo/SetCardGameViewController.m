@@ -86,6 +86,55 @@
     }
 }
 
+- (IBAction)addCards:(id)sender
+{
+    const NSUInteger maxCardsOnBoard = 20;
+    NSUInteger cards = 3;
+    if (self.cardViews.count+cards>maxCardsOnBoard) {
+        cards = maxCardsOnBoard - self.cardViews.count;
+    }
+    Grid *grid = [[Grid alloc]init];
+    CGPoint offset = CGPointMake(16, 100);
+    grid.size = CGSizeMake(self.view.frame.size.width - offset.x*2, self.view.frame.size.height - offset.y);
+    grid.cellAspectRatio = 2.0/2.8;
+    grid.minimumNumberOfCells = self.cardViews.count + cards;
+    
+    CGRect frame = CGRectZero;
+    frame.origin = CGPointMake(-[grid cellSize].width, -[grid cellSize].height);
+    frame.size = CGSizeMake([grid cellSize].width * 0.9, [grid cellSize].height * 0.9);
+    for (int i = 0; i < cards; ++i) {
+        SetCard* card = (SetCard*)[self.game drawCard];
+        SetCardView *view = [[SetCardView alloc] initWithFrame:frame];
+        view.color = card.color;
+        view.shape = card.shape;
+        view.shading = card.shading;
+        view.number = card.number;
+        UIGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+        [view addGestureRecognizer:tapRecognizer];
+        [self.cardViews addObject:view];
+        [self.view addSubview:view];
+    }
+    NSTimeInterval delay = 0;
+    for(int i = 0; i < self.cardViews.count; i++) {
+        SetCardView *view = self.cardViews[i];
+        CGPoint position = [grid centerOfCellAtRow:i/grid.columnCount inColumn:i%grid.columnCount];
+        if (!CGPointEqualToPoint(view.center, position) || !CGSizeEqualToSize(view.bounds.size, frame.size))
+        {
+            [UIView animateWithDuration:0.3
+                                  delay:delay
+                                options:UIViewAnimationOptionCurveEaseInOut
+                             animations:^{
+                                 view.center = CGPointMake(offset.x+position.x, offset.y+position.y);
+                                 CGRect bounds = view.bounds;
+                                 bounds.size = frame.size;
+                                 view.bounds = bounds;
+                             }
+                             completion:^(BOOL finished) {}];
+            delay += i > self.cardViews.count - cards - 1 ? 0.1: 0.0;
+        }
+    }
+}
+
 - (void)handleTap:(UITapGestureRecognizer *)sender
 {
     NSUInteger cardIndex = [self.cardViews indexOfObject:sender.view];
