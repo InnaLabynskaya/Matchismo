@@ -62,6 +62,18 @@
     return card;
 }
 
+- (NSIndexSet*) removeMatchedCards
+{
+    NSMutableIndexSet *removedIndexes = [[NSMutableIndexSet alloc] init];
+    for(int i = 0; i < self.cards.count; i++) {
+        if(((Card *)self.cards[i]).isMatched) {
+            [removedIndexes addIndex:i];
+        }
+    }
+    [self.cards removeObjectsAtIndexes:removedIndexes];
+    return removedIndexes;
+}
+
 #define MISMATCH_PENALTY (-2)
 static const int MATCH_BONUS = 4;
 static const int COST_TO_CHOOSE = -1;

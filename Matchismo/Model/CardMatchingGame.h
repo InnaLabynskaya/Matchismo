@@ -27,5 +27,6 @@
 @property (nonatomic, readonly, strong) NSMutableArray *moves;
 
 - (Card *) drawCard;
+- (NSIndexSet*) removeMatchedCards;
 
 @end
