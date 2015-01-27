@@ -21,7 +21,7 @@
 
 @implementation ViewController
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self updateUI];

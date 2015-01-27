@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="9QA-Iz-wgb">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Play-->
@@ -16,14 +17,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u1t-mc-BLo">
-                                <rect key="frame" x="34" y="72" width="96" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u1t-mc-BLo">
+                                <rect key="frame" x="16" y="72" width="96" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="96" id="KXG-6k-iQb"/>
+                                    <constraint firstAttribute="height" constant="21" id="xRe-ez-Uo9"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UmW-5E-ceL">
+                                <rect key="frame" x="16" y="101" width="288" height="322"/>
+                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="UmW-5E-ceL" firstAttribute="leading" secondItem="u1t-mc-BLo" secondAttribute="leading" id="K0c-Rr-tNQ"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="UmW-5E-ceL" secondAttribute="bottom" constant="8" symbolic="YES" id="OMh-s0-wtk"/>
+                            <constraint firstItem="UmW-5E-ceL" firstAttribute="top" secondItem="u1t-mc-BLo" secondAttribute="bottom" constant="8" symbolic="YES" id="SnU-4B-p9O"/>
+                            <constraint firstItem="u1t-mc-BLo" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="eXB-2Q-WEm"/>
+                            <constraint firstItem="u1t-mc-BLo" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" symbolic="YES" id="sGF-to-o5X"/>
+                            <constraint firstItem="UmW-5E-ceL" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="t6a-GB-EAN"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ZDJ-5K-j7Y">
                         <barButtonItem key="leftBarButtonItem" title="Re-Deal" id="BaT-H2-wN7">
@@ -38,6 +55,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="boardView" destination="UmW-5E-ceL" id="Nhe-u5-fwD"/>
                         <outlet property="scoreLabel" destination="u1t-mc-BLo" id="dHe-hk-Rvz"/>
                     </connections>
                 </viewController>
@@ -57,7 +75,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u1P-zK-NjX">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u1P-zK-NjX">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -66,6 +84,12 @@
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="u1P-zK-NjX" secondAttribute="trailing" id="4fK-ex-tck"/>
+                            <constraint firstItem="u1P-zK-NjX" firstAttribute="top" secondItem="qcV-EK-cez" secondAttribute="top" id="D3k-Si-qmv"/>
+                            <constraint firstItem="u1P-zK-NjX" firstAttribute="leading" secondItem="qcV-EK-cez" secondAttribute="leading" id="xsB-Pl-lCd"/>
+                            <constraint firstAttribute="bottom" secondItem="u1P-zK-NjX" secondAttribute="bottom" id="zZl-qH-tuo"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="lWF-ZH-zRL"/>
                     <connections>
@@ -88,12 +112,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lU9-bQ-3tn">
-                                <rect key="frame" x="16" y="72" width="96" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yXz-cK-wXv">
                                 <rect key="frame" x="233" y="68" width="74" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -105,6 +123,12 @@
                                     <action selector="addCards:" destination="m2h-BA-Zdk" eventType="touchUpInside" id="er4-ie-TjF"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lU9-bQ-3tn">
+                                <rect key="frame" x="16" y="72" width="96" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
