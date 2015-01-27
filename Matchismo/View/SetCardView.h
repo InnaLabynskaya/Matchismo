@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SetCard.h"
 
 @interface SetCardView : UIView
+
+@property(nonatomic) SetCardColor color;
+@property(nonatomic) SetCardShading shading;
+@property(nonatomic) SetCardShape shape;
+@property(nonatomic) NSUInteger number;
 
 @end

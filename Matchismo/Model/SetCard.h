@@ -11,19 +11,19 @@
 typedef enum : NSUInteger {
     SetCardColorRed,
     SetCardColorGreen,
-    SetCardColorBlue
+    SetCardColorPurple
 } SetCardColor;
 
 typedef enum : NSUInteger {
-    SetCardShadingNone,
+    SetCardShadingUnfilled,
     SetCardShadingSolid,
-    SetCardShadingDashed
+    SetCardShadingStriped
 } SetCardShading;
 
 typedef enum : NSUInteger {
-    SetCardShapeTriangle,
-    SetCardShapeRectangle,
-    SetCardShapeCircle,
+    SetCardShapeSquiggles,
+    SetCardShapeDiamond,
+    SetCardShapeOval,
 } SetCardShape;
 
 @interface SetCard : Card

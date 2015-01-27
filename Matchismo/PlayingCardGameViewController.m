@@ -98,8 +98,12 @@
     for(PlayingCardView *cardView in self.cardViews){
         NSUInteger cardIndex = [self.cardViews indexOfObject:cardView];
         Card *card = [self.game cardAtIndex:cardIndex];
-        cardView.faceUp = card.isChosen;
+        //cardView.faceUp = card.isChosen;
         cardView.alpha = card.isMatched? 0.5: 1.0;
+        if(card.isChosen != cardView.faceUp)
+            [UIView transitionWithView:cardView duration:0.4 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+                cardView.faceUp = card.isChosen;
+            } completion:^(BOOL finished) {}];
     }
 }
 

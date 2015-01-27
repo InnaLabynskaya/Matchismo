@@ -15,13 +15,13 @@
 {
     self = [super init];
     if(self){
-        for(SetCardShape shape = SetCardShapeTriangle; shape <= SetCardShapeCircle; shape++)
+        for(SetCardShape shape = SetCardShapeSquiggles; shape <= SetCardShapeOval; shape++)
         {
             for(NSUInteger number = 1; number <= [SetCard maxNumber]; number++)
             {
-                for(SetCardColor color = SetCardColorRed; color <= SetCardColorBlue; color++)
+                for(SetCardColor color = SetCardColorRed; color <= SetCardColorPurple; color++)
                 {
-                    for(SetCardShading shade = SetCardShadingNone; shade <= SetCardShadingDashed; shade++)
+                    for(SetCardShading shade = SetCardShadingUnfilled; shade <= SetCardShadingStriped; shade++)
                     {
                         SetCard *card = [[SetCard alloc] init];
                         card.shape = shape;

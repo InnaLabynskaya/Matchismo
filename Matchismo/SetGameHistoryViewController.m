@@ -74,26 +74,26 @@
 
 - (NSString*)stringFromShape:(SetCardShape)setShape shading:(SetCardShading)setShading
 {
-    BOOL empty = setShading == SetCardShadingNone;
+    BOOL empty = setShading == SetCardShadingUnfilled;
     switch (setShape) {
-        case SetCardShapeTriangle:
+        case SetCardShapeSquiggles:
             return empty? @"△": @"▲";
-        case SetCardShapeCircle:
+        case SetCardShapeOval:
             return empty? @"○": @"●";
-        case SetCardShapeRectangle:
+        case SetCardShapeDiamond:
             return empty? @"◇": @"◆";
     }
 }
 
 - (UIColor*)colorFromSetColor:(SetCardColor)setColor shading:(SetCardShading)setShading
 {
-    CGFloat alpha = setShading == SetCardShadingDashed? 0.5: 1.0;
+    CGFloat alpha = setShading == SetCardShadingStriped? 0.5: 1.0;
     switch (setColor) {
         case SetCardColorRed:
             return [[UIColor alloc] initWithRed:1 green:0 blue:0 alpha:alpha];
         case SetCardColorGreen:
             return [[UIColor alloc] initWithRed:0 green:1 blue:0 alpha:alpha];
-        case SetCardColorBlue:
+        case SetCardColorPurple:
             return [[UIColor alloc] initWithRed:0 green:0 blue:1 alpha:alpha];
     }
 }
