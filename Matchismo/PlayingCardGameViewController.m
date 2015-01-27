@@ -55,7 +55,7 @@
                                   delay:i*0.1
                                 options:UIViewAnimationOptionCurveEaseInOut
                              animations:^{
-                                 view.center = CGPointMake(-[grid cellSize].width, -[grid cellSize].height);
+                                 view.center = CGPointMake(-self.view.frame.size.width, -self.view.frame.size.height);
                              }
                              completion:^(BOOL finished) {
                                  [view removeFromSuperview];

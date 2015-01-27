@@ -112,8 +112,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yXz-cK-wXv">
-                                <rect key="frame" x="233" y="68" width="74" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lU9-bQ-3tn">
+                                <rect key="frame" x="16" y="72" width="75" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="UeM-Gx-smL"/>
+                                    <constraint firstAttribute="width" constant="75" id="mAq-CX-aaF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ivb-Q5-IZ2">
+                                <rect key="frame" x="16" y="101" width="288" height="322"/>
+                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yXz-cK-wXv">
+                                <rect key="frame" x="230" y="68" width="74" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="74" id="SyV-gi-lmt"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <state key="normal" title="Add Cards">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -123,14 +140,19 @@
                                     <action selector="addCards:" destination="m2h-BA-Zdk" eventType="touchUpInside" id="er4-ie-TjF"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lU9-bQ-3tn">
-                                <rect key="frame" x="16" y="72" width="96" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="ivb-Q5-IZ2" firstAttribute="trailing" secondItem="yXz-cK-wXv" secondAttribute="trailing" id="JSg-IM-j1q"/>
+                            <constraint firstItem="ivb-Q5-IZ2" firstAttribute="top" secondItem="lU9-bQ-3tn" secondAttribute="bottom" constant="8" symbolic="YES" id="LJn-jO-52J"/>
+                            <constraint firstItem="lU9-bQ-3tn" firstAttribute="leading" secondItem="16D-xf-te6" secondAttribute="leadingMargin" id="Msy-74-3jO"/>
+                            <constraint firstItem="yXz-cK-wXv" firstAttribute="top" secondItem="Zd3-mz-aMk" secondAttribute="bottom" constant="4" id="UJt-tP-Mxo"/>
+                            <constraint firstItem="bT8-Ad-cbD" firstAttribute="top" secondItem="ivb-Q5-IZ2" secondAttribute="bottom" constant="8" symbolic="YES" id="VFd-PN-gjU"/>
+                            <constraint firstItem="ivb-Q5-IZ2" firstAttribute="trailing" secondItem="16D-xf-te6" secondAttribute="trailingMargin" id="eeu-7q-Xcn"/>
+                            <constraint firstItem="ivb-Q5-IZ2" firstAttribute="top" secondItem="yXz-cK-wXv" secondAttribute="bottom" constant="3" id="hjX-lj-0z0"/>
+                            <constraint firstItem="lU9-bQ-3tn" firstAttribute="leading" secondItem="ivb-Q5-IZ2" secondAttribute="leading" id="hyF-Im-XIG"/>
+                            <constraint firstItem="lU9-bQ-3tn" firstAttribute="top" secondItem="Zd3-mz-aMk" secondAttribute="bottom" constant="8" symbolic="YES" id="pdw-BE-GAk"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="qb9-GO-s2u">
                         <barButtonItem key="leftBarButtonItem" title="Re-Deal" id="Hhd-aD-1cG">
@@ -145,6 +167,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="boardView" destination="ivb-Q5-IZ2" id="Hbl-BV-nz7"/>
                         <outlet property="scoreLabel" destination="lU9-bQ-3tn" id="5Bz-XK-8PV"/>
                     </connections>
                 </viewController>
@@ -221,7 +244,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WIA-bd-E3a">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WIA-bd-E3a">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -230,6 +253,12 @@
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="WIA-bd-E3a" secondAttribute="bottom" id="5vr-AU-GWF"/>
+                            <constraint firstItem="WIA-bd-E3a" firstAttribute="leading" secondItem="eNU-mM-9Yp" secondAttribute="leading" id="DOf-l1-jTK"/>
+                            <constraint firstItem="WIA-bd-E3a" firstAttribute="top" secondItem="eNU-mM-9Yp" secondAttribute="top" id="Mea-Vf-a2o"/>
+                            <constraint firstAttribute="trailing" secondItem="WIA-bd-E3a" secondAttribute="trailing" id="xB8-FE-8Xz"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ONV-7r-FJw"/>
                     <connections>

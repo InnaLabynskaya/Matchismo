@@ -13,6 +13,7 @@
 #import "SetCardView.h"
 
 @interface SetCardGameViewController ()
+@property (weak, nonatomic) IBOutlet UIView *boardView;
 @property(nonatomic, strong)NSMutableArray *cardViews;
 @end
 
@@ -37,13 +38,12 @@
 {
     const NSUInteger cards = 12;
     Grid *grid = [[Grid alloc]init];
-    CGPoint offset = CGPointMake(16, 100);
-    grid.size = CGSizeMake(self.view.frame.size.width - offset.x*2, self.view.frame.size.height - offset.y);
+    grid.size = self.boardView.frame.size;
     grid.cellAspectRatio = 2.0/2.8;
     grid.minimumNumberOfCells = cards;
     
     CGRect frame = CGRectZero;
-    frame.origin = CGPointMake(-[grid cellSize].width, -[grid cellSize].height);
+    frame.origin = CGPointMake(-self.view.frame.size.width, -self.view.frame.size.height);
     frame.size = CGSizeMake([grid cellSize].width * 0.9, [grid cellSize].height * 0.9);
     //remove old cards from view
     float delay = 0;
@@ -55,7 +55,7 @@
                                   delay:i*0.1
                                 options:UIViewAnimationOptionCurveEaseInOut
                              animations:^{
-                                 view.center = CGPointMake(-[grid cellSize].width, -[grid cellSize].height);
+                                 view.center = CGPointMake(-self.view.frame.size.width, -self.view.frame.size.height);
                              }
                              completion:^(BOOL finished) {
                                  [view removeFromSuperview];
@@ -76,13 +76,13 @@
                               delay:delay+i*0.1
                             options:UIViewAnimationOptionCurveEaseInOut
                          animations:^{
-                             view.center = CGPointMake(offset.x+position.x, offset.y+position.y);
+                             view.center = position;
                          }
                          completion:^(BOOL finished) {}];
         UIGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
         [view addGestureRecognizer:tapRecognizer];
         [self.cardViews addObject:view];
-        [self.view addSubview:view];
+        [self.boardView addSubview:view];
     }
 }
 
@@ -94,8 +94,7 @@
         cards = maxCardsOnBoard - self.cardViews.count;
     }
     Grid *grid = [[Grid alloc]init];
-    CGPoint offset = CGPointMake(16, 100);
-    grid.size = CGSizeMake(self.view.frame.size.width - offset.x*2, self.view.frame.size.height - offset.y);
+    grid.size = self.boardView.frame.size;
     grid.cellAspectRatio = 2.0/2.8;
     grid.minimumNumberOfCells = self.cardViews.count + cards;
     
@@ -112,7 +111,7 @@
         UIGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
         [view addGestureRecognizer:tapRecognizer];
         [self.cardViews addObject:view];
-        [self.view addSubview:view];
+        [self.boardView addSubview:view];
     }
     NSTimeInterval delay = 0;
     for(int i = 0; i < self.cardViews.count; i++) {
@@ -124,7 +123,7 @@
                                   delay:delay
                                 options:UIViewAnimationOptionCurveEaseInOut
                              animations:^{
-                                 view.center = CGPointMake(offset.x+position.x, offset.y+position.y);
+                                 view.center = position;
                                  CGRect bounds = view.bounds;
                                  bounds.size = frame.size;
                                  view.bounds = bounds;
@@ -153,14 +152,13 @@
     for(SetCardView *view in removedCards)
     {
         [UIView animateWithDuration:0.3 animations:^{
-            view.center = CGPointMake(-view.bounds.size.width, -view.bounds.size.height);
+            view.center = CGPointMake(-self.view.frame.size.width, -self.view.frame.size.height);
         } completion:^(BOOL finished) {
             [view removeFromSuperview];
         }];
     }
     Grid *grid = [[Grid alloc]init];
-    CGPoint offset = CGPointMake(16, 100);
-    grid.size = CGSizeMake(self.view.frame.size.width - offset.x*2, self.view.frame.size.height - offset.y);
+    grid.size = self.boardView.frame.size;
     grid.cellAspectRatio = 2.0/2.8;
     grid.minimumNumberOfCells = self.cardViews.count;
     CGRect frame = CGRectZero;
@@ -174,7 +172,7 @@
                                   delay:0.3
                                 options:UIViewAnimationOptionCurveEaseInOut
                              animations:^{
-                                 view.center = CGPointMake(offset.x+position.x, offset.y+position.y);
+                                 view.center = position;
                                  CGRect bounds = view.bounds;
                                  bounds.size = frame.size;
                                  view.bounds = bounds;
@@ -199,6 +197,31 @@
                          }
                          completion:^(BOOL finished) {
                          }];
+    }
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    
+    Grid *grid = [[Grid alloc] init];
+    grid.size = self.boardView.frame.size;
+    grid.cellAspectRatio = 2.0/2.8;
+    grid.minimumNumberOfCells = self.cardViews.count;
+    CGSize cellSize = CGSizeMake([grid cellSize].width * 0.9, [grid cellSize].height * 0.9);
+    for (int i = 0; i < self.cardViews.count; ++i) {
+        SetCardView *view = self.cardViews[i];
+        CGPoint position = [grid centerOfCellAtRow:i/grid.columnCount inColumn:i%grid.columnCount];
+        [UIView animateWithDuration:0.3
+                              delay:0
+                            options:UIViewAnimationOptionCurveEaseInOut
+                         animations:^{
+                             view.center = position;
+                             CGRect bounds = view.bounds;
+                             bounds.size = cellSize;
+                             view.bounds = bounds;
+                         }
+                         completion:^(BOOL finished) {}];
     }
 }
 
